@@ -1,0 +1,24 @@
+<div class="m-3">
+  <button class="btn btn-info" (click)="sortByName()">Sort by name</button>
+</div>
+
+<div *ngIf="pokemonList && pokemonList.length > 0, else non_pokemon">
+  <div class="container-fluid">
+    <div class="row" infinite-scroll>
+      <div class="col mb-5" *ngFor="let pokemon of pokemonList; trackBy: trackId">
+        <div class="card mx-auto" style="width: 18rem">
+          <img [src]="pokemon.photoURL" class="card-img-top" [alt]="pokemon.name">
+          <div class="card-body">
+            <h5 class="card-title">{{pokemon.name | titlecase}}</h5>
+            <a class="btn btn-primary" routerLink="/pokemon/{{pokemon.id}}">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #non_pokemon>
+  <p>pokemon not appear</p>
+</ng-template>
+

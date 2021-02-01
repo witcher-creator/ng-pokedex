@@ -1,0 +1,21 @@
+<div *ngIf="pokemon" class="container">
+  <img [src]="pokemon.photoURL" alt="{{pokemon.name}}" class="mx-auto" style="display: block; width: 18rem;">
+  <h2>{{pokemon.name|titlecase}}</h2>
+  <p><span class="badge">height:</span> {{pokemon.height}}</p>  
+  <p><span class="badge">weight:</span> {{pokemon.weight}}</p>
+  
+  <span class="badge">types:</span> 
+  <ul>
+    <li *ngFor="let type of pokemon.types">
+      <span>{{type}}</span>
+    </li>
+  </ul>
+  <span class="badge">abilities:</span> 
+  <ul *ngIf="pokemon.abilities as abilities">
+    <li *ngFor="let ability of abilities">
+      <span>{{ability}}</span>
+    </li>
+  </ul>
+
+  <button class="btn btn-info my-2" (click)="goBack()">Back</button>
+</div>
