@@ -4,7 +4,12 @@
 
 <div *ngIf="pokemonList && pokemonList.length > 0, else non_pokemon">
   <div class="container-fluid">
-    <div class="row" infinite-scroll>
+    <div class="row" infinite-scroll
+      [infiniteScrollDistance]="scrollDistance"
+      [infiniteScrollUpDistance]="scrollUpDistance"
+      [infiniteScrollThrottle]="throttle"
+      (scrolled)="onScrollDown()"
+      (scrolledUp)="onUp()">
       <div class="col mb-5" *ngFor="let pokemon of pokemonList; trackBy: trackId">
         <div class="card mx-auto" style="width: 18rem">
           <img [src]="pokemon.photoURL" class="card-img-top" [alt]="pokemon.name">

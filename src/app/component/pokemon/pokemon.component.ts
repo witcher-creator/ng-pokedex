@@ -9,11 +9,16 @@ import { PokemonService } from './pokemon.service';
 })
 export class PokemonComponent implements OnInit {
   pokemonList?: IPokemon[];
-  
+  scrollDistance = 1;
+  scrollUpDistance = 2;
+  throttle = 300;
+
+  limit = 50;
+  offset = 0;
   constructor(private pokeService: PokemonService) { }
 
   getPokemonList(): void {
-    this.pokeService.findAll().subscribe(res => this.pokemonList = res);
+    this.pokeService.findAll(this.limit, this.offset).subscribe(res => this.pokemonList = res);
   }
 
   ngOnInit(): void {
@@ -37,5 +42,24 @@ export class PokemonComponent implements OnInit {
         return 0;
       })
     }
+  }
+
+  onScrollDown(): void {
+    console.log("down");
+    this.offset = this.limit;
+    this.limit = this.limit + 50;
+    console.log(this.offset + " and " + this.limit);
+    this.getPokemonList();
+  }
+
+  onUp(): void {
+    console.log("up");
+    if(this.offset >= 50){
+      this.limit = this.offset;
+      this.offset = this.limit - 50;
+      console.log(this.offset + " and " + this.limit);
+      this.getPokemonList(); 
+    }
+    
   }
 }
